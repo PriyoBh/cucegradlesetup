@@ -17,7 +17,7 @@ repositories {
 }
 
 dependencies {
-    testImplementation group: 'junit', name: 'junit', version: '4.12','io.cucumber:cucumber-java:6.1.1'
+    testImplementation 'io.cucumber:cucumber-java:7.0.0'
 }
 
 configurations {
@@ -32,7 +32,9 @@ task cucumber() {
         javaexec {
 
             main = "io.cucumber.core.cli.Main"
+          //  args "cucumber.options", project.findProperty("cucumber.options") ?: "\"--tags,(@SmokeTest)"
             System.out.println("option --> " + System.getProperty("cucumber.options"))
+            //System.out.println("cucumber property --> " + System.getProperty("cucumber.publish.quiet"))
             classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
             args = ['--plugin', 'pretty', '--glue', 'cucegradlesetup', 'src/test/resources']
             //args System.getProperty("cucumber.options", "")
